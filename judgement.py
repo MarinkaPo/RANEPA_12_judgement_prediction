@@ -184,7 +184,42 @@ options = st.multiselect(
         'century',
         'miracle',
         'scammer',
-        'Appendix']
+        'Appendix',
+
+        'Hawaiian',
+        'radiation',
+        'shelter',
+        'Kent',
+        'wild nature',
+        'a hammer',
+        'thing',
+        'ash',
+        'cotton',
+        'predatory',
+        'ratio',
+        'Butler',
+        'northwest',
+        'landowner',
+        'need',
+        'raisin',
+        'bull',
+        'motorbike',
+        'the pursuit',
+        'donation',
+        'burning',
+        'barge',
+        'scout',
+        'the pursuit',
+        'camera',
+        'detained',
+        "pricing"
+        'combat',
+        'enemy',
+        'China',
+        'dollar',
+        'fossil',
+        'leasing',
+        'laboratory']
      )
 st.write('Вы выбрали:', options)
 

@@ -29,7 +29,7 @@ from joblib import dump, load
 from sklearn.metrics import accuracy_score
 ## for data
 
-import re
+# import re
 # import nltk # Natural Language Toolkit - пакет библиотек и программ для символьной и статистической обработки естественного языка
 # nltk.download('punkt')
 # nltk.download('stopwords')

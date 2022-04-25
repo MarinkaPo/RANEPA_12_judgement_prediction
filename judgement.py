@@ -67,7 +67,7 @@ expander_bar.markdown(
     синтеза естественного языка.
     \n**Используемые библиотеки:** [xgboost](https://xgboost.readthedocs.io/en/stable/), [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), [matplotlib](https://matplotlib.org/stable/api/index.html), [numpy](https://numpy.org/doc/stable/reference/index.html).
     \n**Полезно почитать:** [NLP и LawTech](https://www.law.ox.ac.uk/sites/files/oxlaw/ai_final1097.pdf), 
-    [Law and Word Order: NLP in Legal Tech](https://towardsdatascience.com/law-and-word-order-nlp-in-legal-tech-bd14257ebd06)), [Stanford CoreNLP](https://cloudacademy.com/blog/natural-language-processing-stanford-corenlp/)).
+    [Law and Word Order: NLP in Legal Tech](https://towardsdatascience.com/law-and-word-order-nlp-in-legal-tech-bd14257ebd06), [Stanford CoreNLP](https://cloudacademy.com/blog/natural-language-processing-stanford-corenlp/).
 
     """)
 

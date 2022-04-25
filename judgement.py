@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 import seaborn as sns
 
-# from sklearn import preprocessing
-# from sklearn.model_selection import train_test_split
-# from sklearn.preprocessing import StandardScaler
-# from sklearn.metrics import classification_report
-# from sklearn.pipeline import Pipeline
-# from sklearn.feature_extraction.text import CountVectorizer
-# from sklearn.model_selection import GridSearchCV
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import GridSearchCV
 import joblib
 from joblib import dump, load
 import pickle

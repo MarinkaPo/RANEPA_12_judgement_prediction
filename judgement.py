@@ -272,7 +272,11 @@ if st.button('Посмотрим предсказания модели'):
     scaler = joblib.load("StandardScaler.save") 
     example_X_test = scaler.transform(example_data_final)
 
-    model_XGBC_loaded = pickle.load(open("XGBClassifier.pkl", "rb"))
+    with open("XGBClassifier.pkl", "rb") as xgbc:
+        model_XGBC_loaded = pickle.load(xgbc)
+
+
+    # model_XGBC_loaded = pickle.load(open('XGBClassifier.pkl', "rb"))
     result = model_XGBC_loaded.predict(example_X_test)
     
     if result[0] == 1:

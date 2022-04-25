@@ -56,16 +56,18 @@ st.write("""
 Приложение *"Supreme Court Judgement Prediction"* демонстрирует, как при помощи методов NLP можно предсказвыть решения суда, 
 имея данные о предыдущих делах и их итогах.
 
-\nДанные подготовил ...
+\nДанные подготовили сотрудники ЛИА РАНХиГС.
 """)
 #-------------------------Project description-------------------------
 expander_bar = st.expander("Информация о работе с текстами:")
 expander_bar.markdown(
     """
-    \nНаписать про NLP и т.д.
-    \n**Используемые библиотеки:** [...](ДОБАВИТЬ ССЫЛКУ), [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), [matplotlib](https://matplotlib.org/stable/api/index.html), [numpy](https://numpy.org/doc/stable/reference/index.html).
-    \n**Полезно почитать:** [Ссылка 1](ДОБАВИТЬ ССЫЛКУ), 
-    [Ссылка 2](ДОБАВИТЬ ССЫЛКУ)), [Ссылка 3](ДОБАВИТЬ ССЫЛКУ)).
+    \nОбработка естественного языка (Natural Language Processing, NLP) — 
+    пересечение машинного обучения, нейронных сетей и математической лингвистики, направленное на изучение методов анализа и 
+    синтеза естественного языка.
+    \n**Используемые библиотеки:** [xgboost](https://xgboost.readthedocs.io/en/stable/), [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), [matplotlib](https://matplotlib.org/stable/api/index.html), [numpy](https://numpy.org/doc/stable/reference/index.html).
+    \n**Полезно почитать:** [NLP и LawTech](https://www.law.ox.ac.uk/sites/files/oxlaw/ai_final1097.pdf), 
+    [Law and Word Order: NLP in Legal Tech](https://towardsdatascience.com/law-and-word-order-nlp-in-legal-tech-bd14257ebd06)), [Stanford CoreNLP](https://cloudacademy.com/blog/natural-language-processing-stanford-corenlp/)).
 
     """)
 

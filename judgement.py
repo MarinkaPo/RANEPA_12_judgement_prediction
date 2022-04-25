@@ -7,15 +7,16 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 import seaborn as sns
 
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import classification_report
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import GridSearchCV
+# from sklearn import preprocessing
+# from sklearn.model_selection import train_test_split
+# from sklearn.preprocessing import StandardScaler
+# from sklearn.metrics import classification_report
+# from sklearn.pipeline import Pipeline
+# from sklearn.feature_extraction.text import CountVectorizer
+# from sklearn.model_selection import GridSearchCV
 import joblib
 from joblib import dump, load
+import pickle
 
 # from xgboost import XGBClassifier
 # from catboost import CatBoostClassifier
@@ -165,77 +166,119 @@ st.header('Работа с моделью')
 st.write('''Рассмотрим пайплайн с моделью RandomForestClassifier():''')
 
 #-------------------------Выбор слов для предсказания-------------------------
-options = st.multiselect(
-     'Выберите нужные слова',
-     ['younger',
-        'wheat',
-        'panikos',
-        'Oxford',
-        'directorate',
-        'kaley',
-        'beilan',
-        'depot',
-        'wreck',
-        'rabkin',
-        'annotation',
-        'dead',
-        'give up',
-        'decrease',
-        'century',
-        'miracle',
-        'scammer',
-        'Appendix',
-
-        'Hawaiian',
-        'radiation',
-        'shelter',
-        'Kent',
-        'wild nature',
-        'a hammer',
-        'thing',
-        'ash',
-        'cotton',
-        'predatory',
-        'ratio',
-        'Butler',
-        'northwest',
-        'landowner',
-        'need',
-        'raisin',
-        'bull',
-        'motorbike',
-        'the pursuit',
+chose_words = st.multiselect(
+     'Выберите нужные слова дела',
+        ['osha', # для дел, выигранных истцом (==1)
+        'segregated',
+        'conrail',
+        'morrissey',
+        'lara',
+        'cheney',
+        'entergy',
+        'isaac',
+        'donaldson',
+        'papai',
+        'mena',
+        'barn',
         'donation',
-        'burning',
-        'barge',
-        'scout',
-        'the pursuit',
-        'camera',
-        'detained',
-        "pricing"
-        'combat',
-        'enemy',
-        'China',
-        'dollar',
-        'fossil',
-        'leasing',
-        'laboratory']
+        'aguilar',
+        'lecs',
+        'robinson',
+        'ash',
+        'dirk',
+        'pg',
+        'adarand',
+        'ake',
+        'generes',
+        'butler',
+        'hishon',
+        'henderson',
+        'dickerson',
+        'subjectmatter',
+        'hawaii',
+        
+        'daca', # для дел, выигранных ответчиком (==0)
+        'map',
+        'varsity',
+        'hartford',
+        'invalidate',
+        'kirkpatrick',
+        'larceny',
+        'iran',
+        'vasquezs',
+        'whitfield',
+        'herrera',
+        'bop',
+        'fmla',
+        'sanchez',
+        'fdcpa',
+        'export',
+        'creation',
+        '2015',
+        'fiscal',
+        'monte',
+        'medellin',
+        'abramski']
      )
-st.write('Вы выбрали:', options)
+chose_year = st.multiselect('Выберите год', [str(i) for i in range (1955, 2011)])
+chose_issue = st.multiselect('Выберите область права',
+        ['Economic Activity', 'First Amendment', 'Civil Rights', 'Privacy',
+       'Judicial Power', 'Criminal Procedure', 'Due Process',
+       'Federalism', 'Federal Taxation', 'Private Action', 'Unions',
+       'Attorneys', 'Miscellaneous', 'Interstate Relations'])
+st.write('Вы выбрали:', chose_words, chose_year, chose_issue)
 
-if options is not None:
-    my_str = ' '.join(options)
-    example_text = {'example_fact': my_str}
-    example_fact_clean = pd.DataFrame(data=example_text, index=[0])
-    example_X_test = example_fact_clean['example_fact']
+if chose_words and chose_year and chose_issue is not None:
+    str_words = ' '.join(chose_words)
+    example = {'example_fact': str_words,
+        'example_year': chose_year,
+        'example_issue': chose_issue}
+    example_df = pd.DataFrame(data=example, index=[0])
+    # example_df
 
 if st.button('Посмотрим предсказания модели'):
-    pipeline_RFC = joblib.load('pipeline_RFC_2.pkl') # pipe1.pkl
-    ex_pred_RFC = pipeline_RFC.predict(example_X_test)
-    if ex_pred_RFC[0] == 1:
+    with open("all_sep_words", "rb") as sw:
+        all_sep_words = pickle.load(sw)
+    df_nl1 = pd.read_csv('df_nl1.csv')
+
+    # фитим векторайзер для слов из дела:
+    vectorize=CountVectorizer()
+    vectorize.fit(all_sep_words)
+    # трансформим:
+    count_matrix = vectorize.transform(example_df['example_fact'])
+    count_array = count_matrix.toarray()
+    data_facts = pd.DataFrame(data=count_array,columns = vectorize.get_feature_names())
+    
+    # фитим векторайзер для года:
+    vectorize_year=CountVectorizer()
+    vectorize_year.fit(df_nl1['term'].astype('string'))
+    # трансформим:
+    count_matrix_year = vectorize_year.transform(example_df['example_year'])
+    count_array_year = count_matrix_year.toarray()
+    df_year_v2 = pd.DataFrame(data=count_array_year, columns = vectorize_year.get_feature_names())
+    
+    # фитим векторайзер для сферы права:
+    vectorize_issue=CountVectorizer()
+    vectorize_issue.fit(df_nl1['issue_area'])
+    # трансформим:
+    count_matrix_issue = vectorize_issue.transform(example_df['example_issue'])
+    count_array_issue = count_matrix_issue.toarray()
+    df_issue_v2 = pd.DataFrame(data=count_array_issue, columns = vectorize_issue.get_feature_names())
+    
+    example_data_final = pd.concat([data_facts, df_year_v2, df_issue_v2],axis=1)
+
+    scaler = joblib.load("StandardScaler.save") 
+    example_X_test = scaler.transform(example_data_final)
+
+    model_XGBC_loaded = pickle.load(open("XGBClassifier.pkl", "rb"))
+    result = model_XGBC_loaded.predict(example_X_test)
+    
+    if result[0] == 1:
         st.write('Выиграл истец')
-    else:
+    elif result[0] == 0:
         st.write('Выиграл ответчик')
+    else:
+        st.write('Нужна корректировка модели')
 
 # st.dataframe(data_final.head(5))
 # st.write("Весь размер таблицы: строк:", data_final.shape[0], "столбцов: ", data_final.shape[1])

@@ -1,8 +1,8 @@
 import streamlit as st
 from PIL import Image
-import cloudpickle as cp
-import urllib
-from urllib.request import urlopen
+# import cloudpickle as cp
+# import urllib
+# from urllib.request import urlopen
 
 import numpy as np 
 import pandas as pd 

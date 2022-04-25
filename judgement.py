@@ -1,5 +1,8 @@
 import streamlit as st
 from PIL import Image
+import cloudpickle as cp
+import urllib
+from urllib.request import urlopen
 
 import numpy as np 
 import pandas as pd 
@@ -272,11 +275,11 @@ if st.button('Посмотрим предсказания модели'):
     scaler = joblib.load("StandardScaler.save") 
     example_X_test = scaler.transform(example_data_final)
 
-    with open("XGBClassifier.pkl", "rb") as xgbc:
-        model_XGBC_loaded = pickle.load(xgbc)
-
-
+    # model_XGBC_loaded = pickle.load(urllib.request.urlopen("https://drive.google.com/file/d/1_U1XxZh1W4vjDJFBDQjzltD4muPEO0aQ/view?usp=sharing")) 
+    # with open("XGBClassifier.pkl", "rb") as xgbc:
+    #     model_XGBC_loaded = pickle.load(xgbc)
     # model_XGBC_loaded = pickle.load(open('XGBClassifier.pkl', "rb"))
+    model_XGBC_loaded = joblib.load("XGBClassifier.pkl") 
     result = model_XGBC_loaded.predict(example_X_test)
     
     if result[0] == 1:

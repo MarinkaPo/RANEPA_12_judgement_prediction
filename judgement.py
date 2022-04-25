@@ -168,7 +168,7 @@ st.code('''X_train, X_test, y_train, y_test = train_test_split(data_final.drop(c
 st.markdown('''<h1 style='text-align: center; color: black;'> Блок 2 </h1>''', 
             unsafe_allow_html=True)
 st.header('Работа с моделью')
-st.write('''Рассмотрим пайплайн с моделью RandomForestClassifier():''')
+st.write('''Рассмотрим пайплайн с моделью XGBClassifier:''')
 
 #-------------------------Выбор слов для предсказания-------------------------
 chose_words = st.multiselect(

@@ -52,8 +52,10 @@ from sklearn.metrics import accuracy_score
 st.markdown('''<h1 style='text-align: right; color: green;'
             >Supreme Court Judgement Prediction</h1>''', 
             unsafe_allow_html=True)
-img = Image.open('judgement_prediction.jpeg') #
-st.image(img, width=450) #use_column_width='auto'
+img_judgement = Image.open('judgement_prediction.jpeg') #
+img_pipeline = Image.open('Pipeline_for_Streamlit.png') #
+st.image(img_judgement, width=450) #use_column_width='auto'
+st.image(img_pipeline, use_column_width='auto') #width=450
 
 st.write("""
 Приложение *"Supreme Court Judgement Prediction"* демонстрирует, как при помощи методов NLP можно предсказвыть решения суда, 

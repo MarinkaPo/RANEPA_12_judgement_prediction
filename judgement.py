@@ -53,9 +53,7 @@ st.markdown('''<h1 style='text-align: right; color: green;'
             >Supreme Court Judgement Prediction</h1>''', 
             unsafe_allow_html=True)
 img_judgement = Image.open('judgement_prediction.jpeg') #
-img_pipeline = Image.open('Pipeline_for_Streamlit.png') #
 st.image(img_judgement, width=450) #use_column_width='auto'
-st.image(img_pipeline, use_column_width='auto') #width=450
 
 st.write("""
 Приложение *"Supreme Court Judgement Prediction"* демонстрирует, как при помощи методов NLP можно предсказвыть решения суда, 
@@ -63,6 +61,9 @@ st.write("""
 
 \nДанные подготовили сотрудники ЛИА РАНХиГС.
 """)
+img_pipeline = Image.open('Pipeline_for_Streamlit.png') #
+st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') #width=450
+
 #-------------------------Project description-------------------------
 expander_bar = st.expander("Информация о работе с текстами:")
 expander_bar.markdown(

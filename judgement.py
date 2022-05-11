@@ -282,7 +282,11 @@ if st.button('Посмотрим предсказания модели'):
     # with open("XGBClassifier.pkl", "rb") as xgbc:
     #     model_XGBC_loaded = pickle.load(xgbc)
     # model_XGBC_loaded = pickle.load(open('XGBClassifier.pkl', "rb"))
-    model_XGBC_loaded = joblib.load("XGBClassifier.pkl") 
+
+    pickle_model = open("XGBClassifier.pkl", "rb")
+    model_XGBC_loaded = pickle.load(pickle_model)
+
+    # model_XGBC_loaded = joblib.load("XGBClassifier.pkl") 
     result = model_XGBC_loaded.predict(example_X_test)
     
     if result[0] == 1:

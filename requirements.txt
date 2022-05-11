@@ -11,6 +11,8 @@ click==8
 
 scikit-learn==1.0.1
 joblib==1.0.1 
+cloudpickle==2.0.0
+pickleshare==0.7.5 
 
 #shap==0.40.0
 #rdkit-pypi==2021.9.4

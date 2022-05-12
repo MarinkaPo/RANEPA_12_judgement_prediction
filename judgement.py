@@ -63,12 +63,34 @@ st.write("""
 
 \nДанные подготовили сотрудники ЛИА РАНХиГС.
 """)
+#-------------------------Pipeline description-------------------------
 img_pipeline = Image.open('Pipeline_for_Streamlit.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') #width=450
 
-#-------------------------Project description-------------------------
-expander_bar = st.expander("Информация о работе с текстами:")
-expander_bar.markdown(
+
+pipeline_bar = st.expander("Пайплайн микросервиса:")
+pipeline_bar.markdown(
+    """
+    \n**Этапы:**
+    \n1. Сбор данных;
+    \n2. Предобработка данных;
+    \n3. Выбор baseline-модели, её обучение и валидация;
+    \n4. Выбор более сложной модели, её обучение и валидация;
+    \n5. Сравнение результатов;
+    \n6. Файнтюнинг (настрйка параметров) лучшей модели;
+    \n7. Оформление микросервиса Streamlit, выгрузка на сервер.
+    """)
+# ---------------------Reading CSV---------------------
+df = pd.read_csv('justice.csv', delimiter=',', encoding = "utf8")
+
+# lda_data_train = pd.read_csv('lda_data_train.csv')
+# lda_data_test = pd.read_csv('lda_data_test.csv')
+
+st.markdown('''<h1 style='text-align: center; color: black;'> Блок 1 </h1>''', 
+            unsafe_allow_html=True)
+
+info_bar = st.expander("Информация о работе с текстами:")
+info_bar.markdown(
     """
     \nОбработка естественного языка (Natural Language Processing, NLP) — 
     пересечение машинного обучения, нейронных сетей и математической лингвистики, направленное на изучение методов анализа и 
@@ -78,15 +100,6 @@ expander_bar.markdown(
     [Law and Word Order: NLP in Legal Tech](https://towardsdatascience.com/law-and-word-order-nlp-in-legal-tech-bd14257ebd06), [Stanford CoreNLP](https://cloudacademy.com/blog/natural-language-processing-stanford-corenlp/).
 
     """)
-
-# ---------------------Reading CSV---------------------
-df = pd.read_csv('justice.csv', delimiter=',', encoding = "utf8")
-
-# lda_data_train = pd.read_csv('lda_data_train.csv')
-# lda_data_test = pd.read_csv('lda_data_test.csv')
-
-st.markdown('''<h1 style='text-align: center; color: black;'> Блок 1 </h1>''', 
-            unsafe_allow_html=True)
 st.header('Смотрим датасет')
 st.dataframe(df.head(5))
 st.write("Весь размер таблицы: строк:", df.shape[0], "столбцов: ", df.shape[1])

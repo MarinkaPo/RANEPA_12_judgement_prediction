@@ -52,7 +52,7 @@ from sklearn.metrics import accuracy_score
 
 # ---------------------Header---------------------
 st.markdown('''<h1 style='text-align: right; color: green;'
-            >Предсказание решения суда</h1>''', 
+            >Предсказание решений суда</h1>''', 
             unsafe_allow_html=True)
 st.markdown('''<h3 style='text-align: right; color: gray;'
             >Supreme Court Judgement Prediction</h3>''', 

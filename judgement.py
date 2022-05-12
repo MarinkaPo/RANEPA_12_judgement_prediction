@@ -52,7 +52,10 @@ from sklearn.metrics import accuracy_score
 
 # ---------------------Header---------------------
 st.markdown('''<h1 style='text-align: right; color: green;'
-            >Supreme Court Judgement Prediction</h1>''', 
+            >Предсказание решения суда</h1>''', 
+            unsafe_allow_html=True)
+st.markdown('''<h3 style='text-align: right; color: gray;'
+            >Supreme Court Judgement Prediction</h3>''', 
             unsafe_allow_html=True)
 img_judgement = Image.open('judgement_prediction.jpeg') #
 st.image(img_judgement, width=450) #use_column_width='auto'

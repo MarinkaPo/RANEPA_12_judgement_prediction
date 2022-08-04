@@ -470,7 +470,7 @@ with st.form(key='model_filter'):
             else:            
                 st.write('**Нужна корректировка модели**')
         except:
-            st.write('**Вы выбрали не все характеристики материалов дела**')
+            st.write('*Вы выбрали не все характеристики материалов дела*')
 
 # st.dataframe(data_final.head(5))
 # st.write("Весь размер таблицы: строк:", data_final.shape[0], "столбцов: ", data_final.shape[1])

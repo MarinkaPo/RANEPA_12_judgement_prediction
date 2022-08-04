@@ -416,58 +416,61 @@ with st.form(key='model_filter'):
         # example_df
 
     if st.form_submit_button('Посмотреть предсказания модели'):
-        with open("all_sep_words", "rb") as sw:
-            all_sep_words = pickle.load(sw)
-        df_nl1 = pd.read_csv('df_nl1.csv')
+        try:
+            with open("all_sep_words", "rb") as sw:
+                all_sep_words = pickle.load(sw)
+            df_nl1 = pd.read_csv('df_nl1.csv')
 
-        # фитим векторайзер для слов из дела:
-        vectorize=CountVectorizer()
-        vectorize.fit(all_sep_words)
-        # трансформим:
-        count_matrix = vectorize.transform(example_df['example_fact'])
-        count_array = count_matrix.toarray()
-        data_facts = pd.DataFrame(data=count_array,columns = vectorize.get_feature_names())
-        
-        # фитим векторайзер для года:
-        vectorize_year=CountVectorizer()
-        vectorize_year.fit(df_nl1['term'].astype('string'))
-        # трансформим:
-        count_matrix_year = vectorize_year.transform(example_df['example_year'])
-        count_array_year = count_matrix_year.toarray()
-        df_year_v2 = pd.DataFrame(data=count_array_year, columns = vectorize_year.get_feature_names())
-        
-        # фитим векторайзер для сферы права:
-        vectorize_issue=CountVectorizer()
-        vectorize_issue.fit(df_nl1['issue_area'])
-        # трансформим:
-        count_matrix_issue = vectorize_issue.transform(example_df['example_issue'])
-        count_array_issue = count_matrix_issue.toarray()
-        df_issue_v2 = pd.DataFrame(data=count_array_issue, columns = vectorize_issue.get_feature_names())
-        
-        example_data_final = pd.concat([data_facts, df_year_v2, df_issue_v2],axis=1)
+            # фитим векторайзер для слов из дела:
+            vectorize=CountVectorizer()
+            vectorize.fit(all_sep_words)
+            # трансформим:
+            count_matrix = vectorize.transform(example_df['example_fact'])
+            count_array = count_matrix.toarray()
+            data_facts = pd.DataFrame(data=count_array,columns = vectorize.get_feature_names())
+            
+            # фитим векторайзер для года:
+            vectorize_year=CountVectorizer()
+            vectorize_year.fit(df_nl1['term'].astype('string'))
+            # трансформим:
+            count_matrix_year = vectorize_year.transform(example_df['example_year'])
+            count_array_year = count_matrix_year.toarray()
+            df_year_v2 = pd.DataFrame(data=count_array_year, columns = vectorize_year.get_feature_names())
+            
+            # фитим векторайзер для сферы права:
+            vectorize_issue=CountVectorizer()
+            vectorize_issue.fit(df_nl1['issue_area'])
+            # трансформим:
+            count_matrix_issue = vectorize_issue.transform(example_df['example_issue'])
+            count_array_issue = count_matrix_issue.toarray()
+            df_issue_v2 = pd.DataFrame(data=count_array_issue, columns = vectorize_issue.get_feature_names())
+            
+            example_data_final = pd.concat([data_facts, df_year_v2, df_issue_v2],axis=1)
 
-        scaler = joblib.load("StandardScaler.save") 
-        example_X_test = scaler.transform(example_data_final)
+            scaler = joblib.load("StandardScaler.save") 
+            example_X_test = scaler.transform(example_data_final)
 
-        # model_XGBC_loaded = pickle.load(urllib.request.urlopen("https://drive.google.com/file/d/1_U1XxZh1W4vjDJFBDQjzltD4muPEO0aQ/view?usp=sharing")) 
-        
-        with open("XGBClassifier.pkl", "rb") as xgbc:
-            model_XGBC_loaded = pickle.load(xgbc)
+            # model_XGBC_loaded = pickle.load(urllib.request.urlopen("https://drive.google.com/file/d/1_U1XxZh1W4vjDJFBDQjzltD4muPEO0aQ/view?usp=sharing")) 
+            
+            with open("XGBClassifier.pkl", "rb") as xgbc:
+                model_XGBC_loaded = pickle.load(xgbc)
 
-        # model_XGBC_loaded = pickle.load(open('XGBClassifier.pkl', "rb"))
+            # model_XGBC_loaded = pickle.load(open('XGBClassifier.pkl', "rb"))
 
-        # pickle_model = open("XGBClassifier.pkl", "rb")
-        # model_XGBC_loaded = pickle.load(pickle_model)
+            # pickle_model = open("XGBClassifier.pkl", "rb")
+            # model_XGBC_loaded = pickle.load(pickle_model)
 
-        # model_XGBC_loaded = joblib.load("XGBClassifier.pkl") 
-        result = model_XGBC_loaded.predict(example_X_test)
-        
-        if result[0] == 1:
-            st.markdown('''<h3 style='text-align: left; color: #008000;'>Выиграл истец</h3>''',unsafe_allow_html=True)
-        elif result[0] == 0:
-            st.markdown('''<h3 style='text-align: left; color: #322a35;'>Выиграл ответчик</h3>''',unsafe_allow_html=True)
-        else:            
-            st.write('**Нужна корректировка модели**')
+            # model_XGBC_loaded = joblib.load("XGBClassifier.pkl") 
+            result = model_XGBC_loaded.predict(example_X_test)
+            
+            if result[0] == 1:
+                st.markdown('''<h3 style='text-align: left; color: #008000;'>Выиграл истец</h3>''',unsafe_allow_html=True)
+            elif result[0] == 0:
+                st.markdown('''<h3 style='text-align: left; color: #322a35;'>Выиграл ответчик</h3>''',unsafe_allow_html=True)
+            else:            
+                st.write('**Нужна корректировка модели**')
+        except:
+            st.write('**Вы выбрали не все характеристики материалов дела**')
 
 # st.dataframe(data_final.head(5))
 # st.write("Весь размер таблицы: строк:", data_final.shape[0], "столбцов: ", data_final.shape[1])

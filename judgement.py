@@ -54,28 +54,42 @@ from sklearn.metrics import accuracy_score
 # https://www.kaggle.com/datasets/deepcontractor/supreme-court-judgment-prediction
 
 # ---------------------Header---------------------
-st.markdown('''<h1 style='text-align: center; color: green;'
+st.markdown('''<h1 style='text-align: center; color: #24110b;'
             >Предсказание решений суда</h1>''', 
             unsafe_allow_html=True)
-st.markdown('''<h3 style='text-align: center; color: #6a5750;'
-            >Supreme Court Judgement Prediction</h3>''', 
-            unsafe_allow_html=True)
+# st.markdown('''<h3 style='text-align: center; color: #6a5750;'
+#             >Supreme Court Judgement Prediction</h3>''', 
+#             unsafe_allow_html=True)
 
-# st.image('judgement_prediction.jpeg', width=650) 
+st.image('judgement_prediction_rus.jpeg', use_column_width='auto') 
 
-col1, col2, col3 = st.columns([1,2,1])
-with col1:
-	st.write("")
-with col2:
-	st.image('judgement_prediction.jpeg', use_column_width='auto')  # uplift_header_pic.jpg Uplift_modeling.jpg
-with col3:
-	st.write("")            
+# col1, col2, col3 = st.columns([1,2,1])
+# with col1:
+# 	st.write("")
+# with col2:
+# 	st.image('judgement_prediction_rus.jpeg', use_column_width='auto')  # uplift_header_pic.jpg Uplift_modeling.jpg
+# with col3:
+# 	st.write("")            
 # img_judgement = Image.open('judgement_prediction.jpeg') #
 # st.image(img_judgement, width=450) #use_column_width='auto'
 
 st.write("""
-Приложение *"Supreme Court Judgement Prediction"* демонстрирует, как при помощи методов NLP можно предсказвыть решения суда, 
+Лабораторная работа *"Предсказание решений суда"* демонстрирует, как при помощи методов NLP можно предсказвыть решения суда, 
 имея данные о предыдущих делах и их итогах.""")
+
+st.markdown('''<h2 style='text-align: left; color: black;'
+            >Актуальность тематики</h2>''', 
+            unsafe_allow_html=True)
+st.write(''' \n##### **Кому будет полезна эта лабораторная работа и почему?**
+\n* **Студентам юридических специальностей:**
+\nНа примере набора судебных материалов разных лет вы попробуете предсказать судебное решение, используя модель машинного обучения.
+\n* **Студентам политическо-правового профиля:**
+\nВы ознакомитесь с возможностями применения искуственного интеллекта в России и мире.
+\n* **Студентам направления истории государства и власти:**
+\nВы узнаете о текущей перспективе внедрения искусственного интеллекта в российскую судебную систему.
+\n* **Студентам других специальностей:**
+\nДля общего понимания использования моделей машинного обучения при работе с любыми текстами, а также для укрепления навыков графического анализа данных.
+''')
 
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Цель и задачи:</h2>''', 
